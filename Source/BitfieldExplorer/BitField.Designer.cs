@@ -1,4 +1,4 @@
-﻿namespace BitfieldDemo
+﻿namespace BitfieldExplorer
 {
     partial class BitField
     {
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

@@ -10,229 +10,9 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Forms;
 
-namespace BitfieldDemo
+namespace BitfieldExplorer
 {
-    /// <summary>
-    /// Bit Flag values that can be used in the bit-field.
-    /// </summary>
-    [Flags]
-    public enum BitFlagValues
-        : uint
-    {
-        /// <summary>
-        /// The default set of bit values to use.
-        /// </summary>
-        /// <remarks>
-        /// <para>If you set a property with a default value then the initialized value also needs to be set with that default value. </para>
-        /// <para>If two enum members with Browsable(false) and EditorBrowsable(EditorBrowsableState.Never) meta-data 
-        /// have the same value, the first will be the one to take on the meta-data and the second will show up in the <see cref="PropertyGrid"/>. </para>
-        /// <para>If the value is 0, it will show up in the list for all other members as well, for some reason.</para>
-        /// </remarks>
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [ListBindable(BindableSupport.No)]
-        Default = None,
-
-        /// <summary>
-        /// No bits have been set.
-        /// </summary>
-        None = 0x00000000,
-
-        /// <summary>
-        /// First bit.
-        /// </summary>
-        Bit01 = 0x00000001,
-
-        /// <summary>
-        /// Second bit.
-        /// </summary>
-        Bit02 = 0x00000002,
-
-        /// <summary>
-        /// Third bit.
-        /// </summary>
-        Bit03 = 0x00000004,
-
-        /// <summary>
-        /// Fourth bit.
-        /// </summary>
-        Bit04 = 0x00000008,
-
-        /// <summary>
-        /// Fifth bit.
-        /// </summary>
-        Bit05 = 0x00000010,
-
-        /// <summary>
-        /// Sixth bit.
-        /// </summary>
-        Bit06 = 0x00000020,
-
-        /// <summary>
-        /// Seventh bit.
-        /// </summary>
-        Bit07 = 0x00000040,
-
-        /// <summary>
-        /// Eighth bit.
-        /// </summary>
-        Bit08 = 0x00000080,
-
-        /// <summary>
-        /// Ninth bit.
-        /// </summary>
-        Bit09 = 0x00000100,
-
-        /// <summary>
-        /// Tenth bit.
-        /// </summary>
-        Bit10 = 0x00000200,
-
-        /// <summary>
-        /// Eleventh bit.
-        /// </summary>
-        Bit11 = 0x00000400,
-
-        /// <summary>
-        /// Twelfth bit.
-        /// </summary>
-        Bit12 = 0x00000800,
-
-        /// <summary>
-        /// Thirteenth bit.
-        /// </summary>
-        Bit13 = 0x00001000,
-
-        /// <summary>
-        /// Fourteenth bit.
-        /// </summary>
-        Bit14 = 0x00002000,
-
-        /// <summary>
-        /// Fifteenth bit.
-        /// </summary>
-        Bit15 = 0x00004000,
-
-        /// <summary>
-        /// Sixteenth bit.
-        /// </summary>
-        Bit16 = 0x00008000,
-
-        /// <summary>
-        /// Seventeenth bit.
-        /// </summary>
-        Bit17 = 0x00010000,
-
-        /// <summary>
-        /// Eighteenth bit.
-        /// </summary>
-        Bit18 = 0x00020000,
-
-        /// <summary>
-        /// Nineteenth bit.
-        /// </summary>
-        Bit19 = 0x00040000,
-
-        /// <summary>
-        /// Twentieth bit.
-        /// </summary>
-        Bit20 = 0x00080000,
-
-        /// <summary>
-        /// Twenty-first bit.
-        /// </summary>
-        Bit21 = 0x00100000,
-
-        /// <summary>
-        /// Twenty-first bit.
-        /// </summary>
-        Bit22 = 0x00200000,
-
-        /// <summary>
-        /// Twenty-third bit.
-        /// </summary>
-        Bit23 = 0x00400000,
-
-        /// <summary>
-        /// Twenty-fourth bit.
-        /// </summary>
-        Bit24 = 0x00800000,
-
-        /// <summary>
-        /// Twenty-fifth bit.
-        /// </summary>
-        Bit25 = 0x01000000,
-
-        /// <summary>
-        /// Twenty-sixth bit.
-        /// </summary>
-        Bit26 = 0x02000000,
-
-        /// <summary>
-        /// Twenty-seventh bit.
-        /// </summary>
-        Bit27 = 0x04000000,
-
-        /// <summary>
-        /// Twenty-seventh bit.
-        /// </summary>
-        Bit28 = 0x08000000,
-
-        /// <summary>
-        /// Twenty-ninth bit.
-        /// </summary>
-        Bit29 = 0x10000000,
-
-        /// <summary>
-        /// Thirtieth bit.
-        /// </summary>
-        Bit30 = 0x20000000,
-
-        /// <summary>
-        /// Thirty-first bit.
-        /// </summary>
-        Bit31 = 0x40000000,
-
-        /// <summary>
-        /// Thirty-second bit.
-        /// </summary>
-        Bit32 = 0x80000000,
-
-        /// <summary>
-        /// Composite value of all of the odd numbered bit values
-        /// </summary>
-        /// <remarks>
-        /// Anytime a new odd value is added/removed, it needs to also be changed here as well.
-        /// </remarks>
-        Odds =
-            Bit01 | Bit03 | Bit05 | Bit07 |
-            Bit09 | Bit11 | Bit13 | Bit15 |
-            Bit17 | Bit19 | Bit21 | Bit23 |
-            Bit25 | Bit27 | Bit29 | Bit31,
-
-        /// <summary>
-        /// Composite value of all of the even numbered bit values.
-        /// </summary>
-        /// <remarks>
-        /// Anytime a new even value is added/removed, it needs to also be changed here as well.
-        /// </remarks>
-        Evens =
-            Bit02 | Bit04 | Bit06 | Bit08 |
-            Bit10 | Bit12 | Bit14 | Bit16 |
-            Bit18 | Bit20 | Bit22 | Bit24 |
-            Bit26 | Bit28 | Bit30 | Bit32,
-
-        /// <summary>
-        /// Composite value of all of the available bit values.
-        /// </summary>
-        /// <remarks>
-        /// As long as <see cref="Odds"/>, and <see cref="Evens"/> are kept up to date, this should also be up to date.
-        /// </remarks>
-        All = None | Odds | Evens,
-    }
-
     /// <summary>
     /// A class to show how to pack boolean values into a bit-field, and use them as properties.
     /// </summary>
@@ -240,22 +20,14 @@ namespace BitfieldDemo
         : Component
     {
         /// <summary>
-        /// The 32-bit field used to store boolean values as bits.
-        /// </summary>
-        /// <remarks>
-        /// If you set a property with a default value, the initialized value also needs to be set to the default value.
-        /// </remarks>
-        private BitFlagValues bits = BitFlagValues.Default;
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
         public bool this[BitFlagValues index]
         {
-            get { return (bits & index) != 0; }
-            set { bits = value ? bits |= index : bits &= ~index; }
+            get { return (EnumBits & index) != 0; }
+            set { EnumBits = value ? EnumBits |= index : EnumBits &= ~index; }
         }
 
         /// <summary>
@@ -278,8 +50,8 @@ namespace BitfieldDemo
         [DefaultValue("0b00000000000000000000000000000000")]
         public string Binary
         {
-            get { return "0b" + Convert.ToString((uint)bits, 2).PadLeft(32, '0'); }
-            set { bits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 2); }
+            get { return "0b" + Convert.ToString((uint)EnumBits, 2).PadLeft(32, '0'); }
+            set { EnumBits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 2); }
         }
 
         /// <summary>
@@ -294,8 +66,8 @@ namespace BitfieldDemo
         [DefaultValue("0x00000000")]
         public string Hexadecimal
         {
-            get { return "0x" + bits.ToString("x"); }
-            set { bits = (BitFlagValues)uint.Parse(value, NumberStyles.AllowHexSpecifier | NumberStyles.HexNumber); }
+            get { return "0x" + EnumBits.ToString("x"); }
+            set { EnumBits = (BitFlagValues)uint.Parse(value, NumberStyles.AllowHexSpecifier | NumberStyles.HexNumber); }
         }
 
         /// <summary>
@@ -310,8 +82,8 @@ namespace BitfieldDemo
         [DefaultValue("0o00000000000")]
         public string Octal
         {
-            get { return "0o" + Convert.ToString((uint)bits, 8).PadLeft(11, '0'); }
-            set { bits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 8); }
+            get { return "0o" + Convert.ToString((uint)EnumBits, 8).PadLeft(11, '0'); }
+            set { EnumBits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 8); }
         }
 
         /// <summary>
@@ -326,8 +98,8 @@ namespace BitfieldDemo
         [DefaultValue("0d0000000000")]
         public string Decimal
         {
-            get { return "0d" + Convert.ToString((uint)bits, 10).PadLeft(10, '0'); }
-            set { bits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 10); }
+            get { return "0d" + Convert.ToString((uint)EnumBits, 10).PadLeft(10, '0'); }
+            set { EnumBits = (BitFlagValues)Convert.ToUInt32(value.Substring(2), 10); }
         }
 
         /// <summary>
@@ -337,11 +109,7 @@ namespace BitfieldDemo
         [DisplayName("Enumeration Values")]
         [Description("The enum representation of the bit-field.")]
         [DefaultValue(BitFlagValues.Default)]
-        public BitFlagValues EnumBits
-        {
-            get { return bits; }
-            set { bits = value; }
-        }
+        public BitFlagValues EnumBits { get; set; } = BitFlagValues.Default;
 
         /// <summary>
         /// Gets or sets a value indicating whether the first bit has been set. 
@@ -352,8 +120,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit01
         {
-            get { return (bits & BitFlagValues.Bit01) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit01 : bits &= ~BitFlagValues.Bit01; }
+            get { return (EnumBits & BitFlagValues.Bit01) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit01 : EnumBits &= ~BitFlagValues.Bit01; }
         }
 
         /// <summary>
@@ -365,8 +133,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit02
         {
-            get { return (bits & BitFlagValues.Bit02) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit02 : bits &= ~BitFlagValues.Bit02; }
+            get { return (EnumBits & BitFlagValues.Bit02) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit02 : EnumBits &= ~BitFlagValues.Bit02; }
         }
 
         /// <summary>
@@ -378,8 +146,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit03
         {
-            get { return (bits & BitFlagValues.Bit03) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit03 : bits &= ~BitFlagValues.Bit03; }
+            get { return (EnumBits & BitFlagValues.Bit03) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit03 : EnumBits &= ~BitFlagValues.Bit03; }
         }
 
         /// <summary>
@@ -391,8 +159,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit04
         {
-            get { return (bits & BitFlagValues.Bit04) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit04 : bits &= ~BitFlagValues.Bit04; }
+            get { return (EnumBits & BitFlagValues.Bit04) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit04 : EnumBits &= ~BitFlagValues.Bit04; }
         }
 
         /// <summary>
@@ -404,8 +172,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit05
         {
-            get { return (bits & BitFlagValues.Bit05) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit05 : bits &= ~BitFlagValues.Bit05; }
+            get { return (EnumBits & BitFlagValues.Bit05) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit05 : EnumBits &= ~BitFlagValues.Bit05; }
         }
 
         /// <summary>
@@ -417,8 +185,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit06
         {
-            get { return (bits & BitFlagValues.Bit06) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit06 : bits &= ~BitFlagValues.Bit06; }
+            get { return (EnumBits & BitFlagValues.Bit06) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit06 : EnumBits &= ~BitFlagValues.Bit06; }
         }
 
         /// <summary>
@@ -430,8 +198,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit07
         {
-            get { return (bits & BitFlagValues.Bit07) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit07 : bits &= ~BitFlagValues.Bit07; }
+            get { return (EnumBits & BitFlagValues.Bit07) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit07 : EnumBits &= ~BitFlagValues.Bit07; }
         }
 
         /// <summary>
@@ -443,8 +211,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit08
         {
-            get { return (bits & BitFlagValues.Bit08) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit08 : bits &= ~BitFlagValues.Bit08; }
+            get { return (EnumBits & BitFlagValues.Bit08) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit08 : EnumBits &= ~BitFlagValues.Bit08; }
         }
 
         /// <summary>
@@ -456,8 +224,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit09
         {
-            get { return (bits & BitFlagValues.Bit09) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit09 : bits &= ~BitFlagValues.Bit09; }
+            get { return (EnumBits & BitFlagValues.Bit09) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit09 : EnumBits &= ~BitFlagValues.Bit09; }
         }
 
         /// <summary>
@@ -469,8 +237,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit10
         {
-            get { return (bits & BitFlagValues.Bit10) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit10 : bits &= ~BitFlagValues.Bit10; }
+            get { return (EnumBits & BitFlagValues.Bit10) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit10 : EnumBits &= ~BitFlagValues.Bit10; }
         }
 
         /// <summary>
@@ -482,8 +250,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit11
         {
-            get { return (bits & BitFlagValues.Bit11) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit11 : bits &= ~BitFlagValues.Bit11; }
+            get { return (EnumBits & BitFlagValues.Bit11) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit11 : EnumBits &= ~BitFlagValues.Bit11; }
         }
 
         /// <summary>
@@ -495,8 +263,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit12
         {
-            get { return (bits & BitFlagValues.Bit12) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit12 : bits &= ~BitFlagValues.Bit12; }
+            get { return (EnumBits & BitFlagValues.Bit12) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit12 : EnumBits &= ~BitFlagValues.Bit12; }
         }
 
         /// <summary>
@@ -508,8 +276,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit13
         {
-            get { return (bits & BitFlagValues.Bit13) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit13 : bits &= ~BitFlagValues.Bit13; }
+            get { return (EnumBits & BitFlagValues.Bit13) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit13 : EnumBits &= ~BitFlagValues.Bit13; }
         }
 
         /// <summary>
@@ -521,8 +289,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit14
         {
-            get { return (bits & BitFlagValues.Bit14) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit14 : bits &= ~BitFlagValues.Bit14; }
+            get { return (EnumBits & BitFlagValues.Bit14) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit14 : EnumBits &= ~BitFlagValues.Bit14; }
         }
 
         /// <summary>
@@ -534,8 +302,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit15
         {
-            get { return (bits & BitFlagValues.Bit15) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit15 : bits &= ~BitFlagValues.Bit15; }
+            get { return (EnumBits & BitFlagValues.Bit15) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit15 : EnumBits &= ~BitFlagValues.Bit15; }
         }
 
         /// <summary>
@@ -547,8 +315,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit16
         {
-            get { return (bits & BitFlagValues.Bit16) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit16 : bits &= ~BitFlagValues.Bit16; }
+            get { return (EnumBits & BitFlagValues.Bit16) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit16 : EnumBits &= ~BitFlagValues.Bit16; }
         }
 
         /// <summary>
@@ -560,8 +328,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit17
         {
-            get { return (bits & BitFlagValues.Bit17) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit17 : bits &= ~BitFlagValues.Bit17; }
+            get { return (EnumBits & BitFlagValues.Bit17) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit17 : EnumBits &= ~BitFlagValues.Bit17; }
         }
 
         /// <summary>
@@ -573,8 +341,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit18
         {
-            get { return (bits & BitFlagValues.Bit18) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit18 : bits &= ~BitFlagValues.Bit18; }
+            get { return (EnumBits & BitFlagValues.Bit18) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit18 : EnumBits &= ~BitFlagValues.Bit18; }
         }
 
         /// <summary>
@@ -586,8 +354,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit19
         {
-            get { return (bits & BitFlagValues.Bit19) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit19 : bits &= ~BitFlagValues.Bit19; }
+            get { return (EnumBits & BitFlagValues.Bit19) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit19 : EnumBits &= ~BitFlagValues.Bit19; }
         }
 
         /// <summary>
@@ -599,8 +367,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit20
         {
-            get { return (bits & BitFlagValues.Bit20) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit20 : bits &= ~BitFlagValues.Bit20; }
+            get { return (EnumBits & BitFlagValues.Bit20) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit20 : EnumBits &= ~BitFlagValues.Bit20; }
         }
 
         /// <summary>
@@ -612,8 +380,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit21
         {
-            get { return (bits & BitFlagValues.Bit21) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit21 : bits &= ~BitFlagValues.Bit21; }
+            get { return (EnumBits & BitFlagValues.Bit21) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit21 : EnumBits &= ~BitFlagValues.Bit21; }
         }
 
         /// <summary>
@@ -625,8 +393,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit22
         {
-            get { return (bits & BitFlagValues.Bit22) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit22 : bits &= ~BitFlagValues.Bit22; }
+            get { return (EnumBits & BitFlagValues.Bit22) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit22 : EnumBits &= ~BitFlagValues.Bit22; }
         }
 
         /// <summary>
@@ -638,8 +406,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit23
         {
-            get { return (bits & BitFlagValues.Bit23) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit23 : bits &= ~BitFlagValues.Bit23; }
+            get { return (EnumBits & BitFlagValues.Bit23) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit23 : EnumBits &= ~BitFlagValues.Bit23; }
         }
 
         /// <summary>
@@ -651,8 +419,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit24
         {
-            get { return (bits & BitFlagValues.Bit24) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit24 : bits &= ~BitFlagValues.Bit24; }
+            get { return (EnumBits & BitFlagValues.Bit24) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit24 : EnumBits &= ~BitFlagValues.Bit24; }
         }
 
         /// <summary>
@@ -664,8 +432,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit25
         {
-            get { return (bits & BitFlagValues.Bit25) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit25 : bits &= ~BitFlagValues.Bit25; }
+            get { return (EnumBits & BitFlagValues.Bit25) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit25 : EnumBits &= ~BitFlagValues.Bit25; }
         }
 
         /// <summary>
@@ -677,8 +445,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit26
         {
-            get { return (bits & BitFlagValues.Bit26) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit26 : bits &= ~BitFlagValues.Bit26; }
+            get { return (EnumBits & BitFlagValues.Bit26) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit26 : EnumBits &= ~BitFlagValues.Bit26; }
         }
 
         /// <summary>
@@ -690,8 +458,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit27
         {
-            get { return (bits & BitFlagValues.Bit27) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit27 : bits &= ~BitFlagValues.Bit27; }
+            get { return (EnumBits & BitFlagValues.Bit27) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit27 : EnumBits &= ~BitFlagValues.Bit27; }
         }
 
         /// <summary>
@@ -703,8 +471,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit28
         {
-            get { return (bits & BitFlagValues.Bit28) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit28 : bits &= ~BitFlagValues.Bit28; }
+            get { return (EnumBits & BitFlagValues.Bit28) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit28 : EnumBits &= ~BitFlagValues.Bit28; }
         }
 
         /// <summary>
@@ -716,8 +484,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit29
         {
-            get { return (bits & BitFlagValues.Bit29) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit29 : bits &= ~BitFlagValues.Bit29; }
+            get { return (EnumBits & BitFlagValues.Bit29) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit29 : EnumBits &= ~BitFlagValues.Bit29; }
         }
 
         /// <summary>
@@ -729,8 +497,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit30
         {
-            get { return (bits & BitFlagValues.Bit30) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit30 : bits &= ~BitFlagValues.Bit30; }
+            get { return (EnumBits & BitFlagValues.Bit30) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit30 : EnumBits &= ~BitFlagValues.Bit30; }
         }
 
         /// <summary>
@@ -742,8 +510,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit31
         {
-            get { return (bits & BitFlagValues.Bit31) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit31 : bits &= ~BitFlagValues.Bit31; }
+            get { return (EnumBits & BitFlagValues.Bit31) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit31 : EnumBits &= ~BitFlagValues.Bit31; }
         }
 
         /// <summary>
@@ -755,8 +523,8 @@ namespace BitfieldDemo
         [DefaultValue(false)]
         public bool Bit32
         {
-            get { return (bits & BitFlagValues.Bit32) != 0; }
-            set { bits = value ? bits |= BitFlagValues.Bit32 : bits &= ~BitFlagValues.Bit32; }
+            get { return (EnumBits & BitFlagValues.Bit32) != 0; }
+            set { EnumBits = value ? EnumBits |= BitFlagValues.Bit32 : EnumBits &= ~BitFlagValues.Bit32; }
         }
 
         /// <summary>
@@ -764,7 +532,7 @@ namespace BitfieldDemo
         /// </summary>
         private void SetOptionField(BitFlagValues mask, bool value)
         {
-            bits = value ? bits |= mask : bits &= ~mask;
+            EnumBits = value ? EnumBits |= mask : EnumBits &= ~mask;
         }
     }
 }

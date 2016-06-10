@@ -1,24 +1,19 @@
-﻿// <copyright file="AssemblyInfo.cs">
-//     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
+﻿// <copyright file="AssemblyInfo.cs" company="Shkyrockett">
+//     Copyright (C) Shkyrockett. All rights reserved.
 // </copyright>
-// <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
-// </license>
-// <author id="shkyrockett">Shkyrockett</author>
-// <summary>Auto-generated code for project properties.</summary>
-
+// <author>Shkyrockett</author>
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bit-field Demo")]
-[assembly: AssemblyDescription("An exploration experiment used to figure out best practices for manipulating Bit-fields using properties in C#.")]
+[assembly: AssemblyTitle("Bit Twiddler")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Shkyrockett")]
-[assembly: AssemblyProduct("Bit-field experiment")]
-[assembly: AssemblyCopyright("Copyright © Shkyrockett 2013 - 2016")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("Bit Twiddler")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,7 +23,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("922105fc-0579-424e-b401-9a4134307e74")]
+[assembly: Guid("76e10187-17b8-43b6-9985-43c323ad1f16")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -40,5 +35,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

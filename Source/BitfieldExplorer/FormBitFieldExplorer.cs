@@ -9,7 +9,7 @@
 
 using System.Windows.Forms;
 
-namespace BitfieldDemo
+namespace BitfieldExplorer
 {
     /// <summary>
     /// The <see cref="FormBitFieldExplorer"/> <see cref="Form"/> class to display changes to the <see cref="BitField"/> live.

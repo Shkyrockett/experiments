@@ -9,7 +9,7 @@
 
 using System.Windows.Forms;
 
-namespace BitfieldDemo
+namespace BitfieldExplorer
 {
     /// <summary>
     /// The <see cref="FormBitFieldExplorer"/> <see cref="Form"/> class to display changes to the <see cref="BitField"/> live.
@@ -54,7 +54,7 @@ namespace BitfieldDemo
         private void InitializeComponent()
         {
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.bitField1 = new BitfieldDemo.BitField();
+            this.bitField1 = new BitfieldExplorer.BitField();
             this.SuspendLayout();
             // 
             // propertyGrid1
